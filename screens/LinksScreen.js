@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 export default function LinksScreen() {
   return (
    <View style={styles.container}>
-
+        
    </View>
   );
 }
