@@ -13,7 +13,14 @@ const Drawer = createDrawerNavigator();
 const ProfileStack = createStackNavigator();
 const RootStack = createStackNavigator();
 const AuthStack = createStackNavigator();
+import BackButton from '../components/BackBtn'
 
+
+const backBtn = ()=> {
+    return(
+      <BackButton/>
+    )
+  }
 const HomeIcon = ()=>{
     return(
         <SimpleLineIcons name="home" color="black" size={20} />
@@ -26,7 +33,7 @@ const ProfileStackScreens = () => {
               options={{
                 headerTitleAlign:"center",
                 headerTransparent:true,
-                
+                headerLeft:backBtn
               }}
           />
       </ProfileStack.Navigator>
@@ -70,7 +77,9 @@ const DrawerScreens = ()=> {
                      options={{
                         drawerIcon:HomeIcon,
                         gestureEnabled:true,
-                        drawerLabel:"My Profile"
+                        drawerLabel:"My Profile",
+                        
+                        
                     }}
                 />      
         </Drawer.Navigator>
