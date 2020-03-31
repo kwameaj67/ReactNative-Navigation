@@ -7,7 +7,7 @@ export default function Details({route,navigation}) {
   return (
     <View style={styles.container}>
          <View style={{alignItems:'center'}}>
-              <Button title="click me" onPress={()=>{navigation.goBack()}}/>
+              <Button title="click me" onPress={()=>{alert("You clicked me")}}/>
               <Text> My name is :{JSON.stringify(name)}</Text>
          </View>
     </View>
