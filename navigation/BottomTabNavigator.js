@@ -5,11 +5,11 @@ import TabBarIcon from '../components/TabBarIcon';
 import Home from '../screens/Home/HomeScreen';
 import Details from '../screens/Home/Details';
 import LinksScreen from '../screens/LinksScreen';
-import BackBtn from '../components/BackBtn';
+import BackButton from '../components/BackBtn';
 
 const backBtn = ()=> {
   return(
-    <BackBtn/>
+    <BackButton/>
   )
 }
 const BottomTab = createBottomTabNavigator();
