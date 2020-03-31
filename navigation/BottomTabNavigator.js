@@ -1,24 +1,72 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator,CardStyleInterpolators,TransitionPresets } from '@react-navigation/stack';
 import TabBarIcon from '../components/TabBarIcon';
 import Home from '../screens/Home/HomeScreen';
 import Details from '../screens/Home/Details';
 import LinksScreen from '../screens/LinksScreen';
+import BackBtn from '../components/BackBtn';
 
+const backBtn = ()=> {
+  return(
+    <BackBtn/>
+  )
+}
 const BottomTab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const SettingStack = createStackNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
-
-
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
 const HomeStackScreens = () => {
   return(
-    <HomeStack.Navigator headerMode="none">
-      <HomeStack.Screen name="Home" component={Home}/>
+    <HomeStack.Navigator 
+    headerMode="float"
+    animation="fade"
+    screenOptions={{
+      gestureEnabled:true,
+      gestureDirection:"horizontal",
+      // cardStyleInterpolator:CardStyleInterpolators.forHorizontalIOS,
+      ...TransitionPresets.SlideFromRightIOS
+    }}
+    >
+      <HomeStack.Screen name="Home" component={Home}
+       options={{
+         title:"Home",
+          headerStyle:{
+          },
+          headerTintColor: 'black',
+          headerTitleStyle: {
+            // fontWeight: 'bold',
+          },
+          headerTitleAlign:"center",
+          headerTransparent:true,
+          // transitionSpec:{
+          //   open:config,
+          //   close:config
+          // }
+      }}/>
       <HomeStack.Screen name="Details" component={Details} 
         option={({route})=>{
             title:route.params.name
+        }}
+        options={{
+          headerTitleAlign:"center",
+          headerTransparent:true,
+          headerLeft:backBtn,
+          headerPressColorAndroid:"#e5e5e5",
+          headerLeftContainerStyle:{
+            padding:5
+          },
         }}
       />
    </HomeStack.Navigator>
@@ -27,8 +75,17 @@ const HomeStackScreens = () => {
 
 const SettingStackScreens = () => {
  return(
-    <SettingStack.Navigator headerMode="none">
-       <SettingStack.Screen name="Settings" component={LinksScreen}/>
+    <SettingStack.Navigator>
+       <SettingStack.Screen name="Settings" component={LinksScreen} 
+        options={{
+          headerTitleAlign:"center",
+          headerTransparent: true,
+          headerStyle:{
+            borderBottomWidth:1,
+            borderBottomColor:"#e5e5e5"
+          }
+        }}
+       />
     </SettingStack.Navigator>
  )
 }
@@ -65,7 +122,7 @@ function getHeaderTitle(route) {
   switch (routeName) {
     case 'Home':
       return 'Home';
-    case 'Links':
+    case 'Settings':
       return 'Settings';
   }
 }
