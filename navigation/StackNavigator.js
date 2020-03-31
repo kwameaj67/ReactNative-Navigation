@@ -8,22 +8,33 @@ import SignIn from '../screens/Auth/SignIn';
 import Profile from '../screens/Profile/Profile';
 import SplashScreen from '../screens/Splash';
 import {AuthContext} from '../screens/Auth/AuthContext';
-
+import { SimpleLineIcons } from '@expo/vector-icons'
 const Drawer = createDrawerNavigator();
 const ProfileStack = createStackNavigator();
 const RootStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 
+const HomeIcon = ()=>{
+    return(
+        <SimpleLineIcons name="home" color="black" size={20} />
+    )
+}
 const ProfileStackScreens = () => {
     return(
-      <ProfileStack.Navigator headerMode="none">
-          <ProfileStack.Screen name="Profile" component={Profile}/>
+      <ProfileStack.Navigator>
+          <ProfileStack.Screen name="Profile" component={Profile} 
+              options={{
+                headerTitleAlign:"center",
+                headerTransparent:true,
+                
+              }}
+          />
       </ProfileStack.Navigator>
     )
   }
 const RootStackScreen = ({userToken}) => {
     return(
-        <RootStack.Navigator headerMode="none">
+        <RootStack.Navigator headerMode="none" >
             {userToken ? (
                 <RootStack.Screen name="App" component={DrawerScreens} options={{animationEnabled:false}}/>
             ):
@@ -37,9 +48,31 @@ const RootStackScreen = ({userToken}) => {
 }
 const DrawerScreens = ()=> {
     return(
-        <Drawer.Navigator>
-                <Drawer.Screen name="Home" component={BottomTabNavigator}/>
-                <Drawer.Screen name="Profile" component={ProfileStackScreens}/>      
+        <Drawer.Navigator headerMode="none"
+        drawerStyle={{
+            width:240,
+            backgroundColor: '#c6cbef',
+        }}
+        drawerContentOptions={{
+            activeTintColor: '#e91e63',
+            itemStyle: { marginVertical: 10, },
+        }}
+        drawerType="slide"
+        >
+                <Drawer.Screen name="Home" component={BottomTabNavigator}
+                    options={{
+                        drawerIcon:HomeIcon,
+                        gestureEnabled:true,
+                        drawerLabel:"My Home"
+                    }}
+                />
+                <Drawer.Screen name="Profile" component={ProfileStackScreens}
+                     options={{
+                        drawerIcon:HomeIcon,
+                        gestureEnabled:true,
+                        drawerLabel:"My Profile"
+                    }}
+                />      
         </Drawer.Navigator>
     )
 }
